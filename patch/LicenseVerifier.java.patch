@@ -1,0 +1,68 @@
+--- tmp/LicenseVerifier.java	2023-04-19 19:03:20.405491900 +0200
++++ patch/LicenseVerifier.java	2023-04-19 19:05:50.892314200 +0200
+@@ -3,55 +3,14 @@
+ import java.io.ByteArrayOutputStream;
+ import java.io.IOException;
+ import java.io.InputStream;
+-import java.nio.ByteBuffer;
+ import java.security.PublicKey;
+-import java.security.Signature;
+-import java.util.Arrays;
+-import java.util.Base64;
+-import java.util.Collections;
+-import org.apache.lucene.util.BytesRef;
+-import org.apache.lucene.util.BytesRefIterator;
+-import org.elasticsearch.common.bytes.BytesReference;
+ import org.elasticsearch.core.Streams;
+-import org.elasticsearch.xcontent.ToXContent;
+-import org.elasticsearch.xcontent.XContentBuilder;
+-import org.elasticsearch.xcontent.XContentFactory;
+-import org.elasticsearch.xcontent.XContentType;
+ 
+ public class LicenseVerifier {
+   private static final PublicKey PUBLIC_KEY;
+   
+   public static boolean verifyLicense(License license, PublicKey publicKey) {
+-    byte[] signedContent = null;
+-    byte[] publicKeyFingerprint = null;
+-    try {
+-      byte[] signatureBytes = Base64.getDecoder().decode(license.signature());
+-      ByteBuffer byteBuffer = ByteBuffer.wrap(signatureBytes);
+-      int version = byteBuffer.getInt();
+-      int magicLen = byteBuffer.getInt();
+-      byte[] magic = new byte[magicLen];
+-      byteBuffer.get(magic);
+-      int hashLen = byteBuffer.getInt();
+-      publicKeyFingerprint = new byte[hashLen];
+-      byteBuffer.get(publicKeyFingerprint);
+-      int signedContentLen = byteBuffer.getInt();
+-      signedContent = new byte[signedContentLen];
+-      byteBuffer.get(signedContent);
+-      XContentBuilder contentBuilder = XContentFactory.contentBuilder(XContentType.JSON);
+-      license.toXContent(contentBuilder, (ToXContent.Params)new ToXContent.MapParams(Collections.singletonMap("license_spec_view", "true")));
+-      Signature rsa = Signature.getInstance("SHA512withRSA");
+-      rsa.initVerify(publicKey);
+-      BytesRefIterator iterator = BytesReference.bytes(contentBuilder).iterator();
+-      BytesRef ref;
+-      while ((ref = iterator.next()) != null)
+-        rsa.update(ref.bytes, ref.offset, ref.length); 
+-      return rsa.verify(signedContent);
+-    } catch (IOException|java.security.NoSuchAlgorithmException|java.security.SignatureException|java.security.InvalidKeyException e) {
+-      throw new IllegalStateException(e);
+-    } finally {
+-      if (signedContent != null)
+-        Arrays.fill(signedContent, (byte)0); 
+-    } 
++    return true;
+   }
+   
+   static {
+@@ -78,7 +37,7 @@
+   }
+   
+   public static boolean verifyLicense(License license) {
+-    return verifyLicense(license, PUBLIC_KEY);
++    return true;
+   }
+ }
+ 
