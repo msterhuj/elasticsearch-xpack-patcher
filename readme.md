@@ -10,7 +10,7 @@ This project is a patcher for elasticsearch x-pack-core plugin. It is a simple s
 
 ## Usage
 
-1. Download the elasticsearch and extract it next to the path.sh file.
+1. Download the [elasticsearch](https://www.elastic.co/downloads/elasticsearch) Linux x86_64 and extract it next to the path.sh file.
 2. Edit the path.sh file and set the folder name and the version of the elasticsearch.
 3. Run the patch.sh file. The patched file will automatically replace the original file. and is also saved next to the path.sh file.
 4. Run the elasticsearch. and install a license.
@@ -29,3 +29,7 @@ This project is a patcher for elasticsearch x-pack-core plugin. It is a simple s
 ```bash
 curl -XPUT -u elastic 'https://<server>:9200/_license' -H "Content-Type: application/json" -d @license.json --insecure
 ```
+
+## Credits
+
+based on [elasticsearch7.0 Cluster Setup and x-pack crack by Hassankarimi118](https://hackmd.io/@Hassankarimi118/elastic)
