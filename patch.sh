@@ -1,7 +1,7 @@
-#!/bin/bash
+#!/bin/bash -e
 
-elasticsearch_dir="elasticsearch-8.7.0"
-elasticsearch_version=$(echo $elasticsearch_dir | cut -d'-' -f2)
+#elasticsearch_dir="elasticsearch-8.7.0"
+#elasticsearch_version=$(echo $elasticsearch_dir | cut -d'-' -f2)
 jd_cli_url="https://github.com/intoolswetrust/jd-cli/releases/download/jd-cli-1.2.0/jd-cli-1.2.0-dist.tar.gz"
 
 x_pack_modules_file="modules/x-pack-core/x-pack-core-8.7.0.jar"
