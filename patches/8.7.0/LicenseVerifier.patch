@@ -1,6 +1,6 @@
---- tmp/LicenseVerifier.java	2023-04-19 19:03:20.405491900 +0200
-+++ patch/LicenseVerifier.java	2023-04-19 19:05:50.892314200 +0200
-@@ -3,55 +3,14 @@
+--- tmp/8.7.0-decompiled/LicenseVerifier.original.java
++++ tmp/8.7.0-decompiled/LicenseVerifier.pached.java
+@@ -3,57 +3,16 @@
  import java.io.ByteArrayOutputStream;
  import java.io.IOException;
  import java.io.InputStream;
@@ -21,7 +21,8 @@
  
  public class LicenseVerifier {
    private static final PublicKey PUBLIC_KEY;
-   
+-  
++
    public static boolean verifyLicense(License license, PublicKey publicKey) {
 -    byte[] signedContent = null;
 -    byte[] publicKeyFingerprint = null;
@@ -55,11 +56,35 @@
 -    } 
 +    return true;
    }
-   
+-  
++
    static {
-@@ -78,7 +37,7 @@
+     try {
+       InputStream is = LicenseVerifier.class.getResourceAsStream("/public.key");
+@@ -62,23 +21,23 @@
+         Streams.copy(is, out);
+         PUBLIC_KEY = CryptUtils.readPublicKey(out.toByteArray());
+         if (is != null)
+-          is.close(); 
++          is.close();
+       } catch (Throwable throwable) {
+         if (is != null)
+           try {
+             is.close();
+           } catch (Throwable throwable1) {
+             throwable.addSuppressed(throwable1);
+-          }  
++          }
+         throw throwable;
+-      } 
++      }
+     } catch (IOException e) {
+       throw new AssertionError("key file is part of the source and must deserialize correctly", e);
+-    } 
++    }
    }
-   
+-  
++
    public static boolean verifyLicense(License license) {
 -    return verifyLicense(license, PUBLIC_KEY);
 +    return true;

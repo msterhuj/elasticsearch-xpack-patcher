@@ -1,6 +1,6 @@
---- tmp/XPackBuild.java	2023-04-19 19:03:17.769149900 +0200
-+++ patch/XPackBuild.java	2023-04-19 19:07:02.956792400 +0200
-@@ -1,12 +1,8 @@
+--- tmp/8.7.0-decompiled/XPackBuild.original.java
++++ tmp/8.7.0-decompiled/XPackBuild.pached.java
+@@ -1,51 +1,24 @@
  package org.elasticsearch.xpack.core;
  
 -import java.io.IOException;
@@ -13,7 +13,16 @@
  import org.elasticsearch.core.PathUtils;
  import org.elasticsearch.core.SuppressForbidden;
  
-@@ -20,30 +16,7 @@
+ public class XPackBuild {
+   public static final XPackBuild CURRENT;
+-  
++
+   private String shortHash;
+-  
++
+   private String date;
+-  
++
    static {
      String shortHash, date;
      Path path = getElasticsearchCodebase();
@@ -43,5 +52,31 @@
 -    CURRENT = new XPackBuild(shortHash, date);
 +    CURRENT = new XPackBuild("Unknown", "Unknown");
    }
-   
+-  
++
    @SuppressForbidden(reason = "looks up path of xpack.jar directly")
+   static Path getElasticsearchCodebase() {
+     URL url = XPackBuild.class.getProtectionDomain().getCodeSource().getLocation();
+@@ -53,18 +26,18 @@
+       return PathUtils.get(url.toURI());
+     } catch (URISyntaxException bogus) {
+       throw new RuntimeException(bogus);
+-    } 
++    }
+   }
+-  
++
+   XPackBuild(String shortHash, String date) {
+     this.shortHash = shortHash;
+     this.date = date;
+   }
+-  
++
+   public String shortHash() {
+     return this.shortHash;
+   }
+-  
++
+   public String date() {
+     return this.date;
+   }
