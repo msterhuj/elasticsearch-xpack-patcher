@@ -1,9 +1,7 @@
 #!/bin/bash
 
 # first argument is the version to download and extract
-starting_path=$(pwd)
-
-is_version_available() {
+function is_version_available() {
   # if wanted_version is not in list of versions, exit
   wanted_version=$1
   available_versions=("8.7.0")
@@ -20,7 +18,7 @@ is_version_available() {
   fi
 }
 
-download_version() {
+function download_version() {
   # check if the version is already installed if not download it
   wanted_version=$1
   if [ -d "versions/${wanted_version}" ]; then

@@ -8,7 +8,19 @@
 
 This project is a patcher for elasticsearch x-pack-core plugin. It is a simple script that patches the x-pack-core plugin to remove the license check. By decompressing the x-pack-core plugin, patching the license check, and then compressing it again, the patched plugin is created.
 
-## Usage
+## Usage to use patch file
+
+1. Enter into docker shell `make shell`
+2. Run the patch.sh with the version of elasticsearch you want to patch.
+
+## Create a new patch file
+
+1. Enter into docker shell `make shell`
+2. Run the decompile.sh with the version of elasticsearch you want to patch.
+3. edit the java file ending with `patched.java` in the tmp/<VERSION>-decompiled folder.
+4. Run make_patch.sh with the version of elasticsearch to generate the patch file.
+
+## Usage old version
 
 1. Download the [elasticsearch](https://www.elastic.co/downloads/elasticsearch) Linux x86_64 and extract it next to the path.sh file.
 2. Edit the path.sh file and set the folder name and the version of the elasticsearch.

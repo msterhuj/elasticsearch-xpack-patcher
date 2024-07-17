@@ -1,1 +1,9 @@
 versions/
+tmp/
+
+.DS_Store
+
+# this is to avoid to commit elasticsearch official code
+*.jar
+*.java
+*.class
