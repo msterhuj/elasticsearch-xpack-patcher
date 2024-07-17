@@ -9,7 +9,6 @@ source scripts/decompile.sh
 
 wanted_version=$1
 
-
 if [ -z "$wanted_version" ]; then
     echo "Please provide a version number"
     exit 1
