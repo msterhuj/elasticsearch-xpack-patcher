@@ -4,7 +4,7 @@
 function is_version_available() {
   # if wanted_version is not in list of versions, exit
   wanted_version=$1
-  available_versions=("8.7.0")
+  available_versions=$(ls patches)
   if [[ ! " ${available_versions[@]} " =~ " ${wanted_version} " ]]; then
     if [ -z "$wanted_version" ]; then
       echo "Please provide a version number"
