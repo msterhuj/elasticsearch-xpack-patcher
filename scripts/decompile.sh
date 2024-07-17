@@ -1,15 +1,14 @@
 #!/bin/bash
+wanted_version=$1
+x_pack_modules_file="versions/${wanted_version}/modules/x-pack-core/x-pack-core-${wanted_version}.jar"
+temp_dir="tmp/${wanted_version}"
+temp_dir_decompiled="${temp_dir}-decompiled"
+package_paths=(
+    "org/elasticsearch/xpack/core/XPackBuild.class"
+    "org/elasticsearch/license/LicenseVerifier.class"
+)
 
 function decompile_xpack() {
-    wanted_version=$1
-    x_pack_modules_file="versions/${wanted_version}/modules/x-pack-core/x-pack-core-${wanted_version}.jar"
-    temp_dir="tmp/${wanted_version}"
-    temp_dir_decompiled="${temp_dir}-decompiled"
-    package_paths=(
-        "org/elasticsearch/xpack/core/XPackBuild.class"
-        "org/elasticsearch/license/LicenseVerifier.class"
-    )
-
     # extract x_pack_modules_file
     mkdir -vp $temp_dir $temp_dir_decompiled
 
@@ -35,4 +34,14 @@ function decompile_xpack() {
     done
 
     ls $temp_dir_decompiled
+}
+
+function generate_patch() {
+    # make patch
+    mkdir -vp patches/${wanted_version}
+    for package_path in "${package_paths[@]}"; do
+        class_name=$(basename "$package_path" .class)
+        diff -u $temp_dir_decompiled/$class_name.original.java $temp_dir_decompiled/$class_name.pached.java > patches/${wanted_version}/$class_name.patch
+        echo "patch created for $package_path in patches/${wanted_version}/$class_name.patch"
+    done;
 }
