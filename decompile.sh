@@ -18,7 +18,7 @@ if [ -d "tmp/${wanted_version}-decompiled" ]; then
   echo "Version ${wanted_version} is already decompiled in tmp/${wanted_version}-decompiled"
   echo "If you want to decompile it again, please remove the directory"
   echo "Run: rm -rf tmp/${wanted_version}-decompiled"
-  exit 1
+  #exit 1
 fi
 
 download_version $wanted_version

@@ -12,7 +12,7 @@ function is_version_available() {
       echo "Version ${wanted_version} is not available"
     fi
     echo "Available versions are: ${available_versions[@]}"
-    exit 1
+    #exit 1
   else
     echo "Requested version: ${wanted_version}"
   fi
