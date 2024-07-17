@@ -20,7 +20,7 @@ function decompile_xpack() {
     else
         echo "$x_pack_modules_file already extracted"
     fi
-
+    sleep 3 # wait for the extraction to finish before decompiling
     # decompile package
     for package_path in "${package_paths[@]}"; do
         class_name=$(basename "$package_path" .class)
