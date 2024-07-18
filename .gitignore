@@ -4,6 +4,9 @@
 tmp/
 versions/
 patched/
+docker/
 *.jar
 *.java
 *.class
+*.json
+docker-compose.yml

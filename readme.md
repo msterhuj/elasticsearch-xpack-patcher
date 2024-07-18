@@ -12,6 +12,7 @@ This project is a patcher for elasticsearch x-pack-core plugin. It is a simple s
 
 1. Enter into docker shell `make shell`
 2. Run the build.sh with the version of elasticsearch you want to patch.
+3. If you want docker image with the patch run docker.sh to create docker file and build image
 
 ## Create a new patch file
 
