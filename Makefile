@@ -3,4 +3,4 @@ shell:
 	docker run --platform linux/amd64 -it --rm --name espacher --volume $(PWD)/:/espatcher/ espacher
 
 clean:
-	rm -rf patched/ tmp/ versions/
+	rm -rf patched/ tmp/ versions/ docker/
