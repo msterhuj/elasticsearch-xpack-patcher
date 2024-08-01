@@ -1,0 +1,47 @@
+--- tmp/7.17.23-decompiled/XPackBuild.original.java
++++ tmp/7.17.23-decompiled/XPackBuild.patched.java
+@@ -1,12 +1,8 @@
+ package org.elasticsearch.xpack.core;
+ 
+-import java.io.IOException;
+ import java.net.URISyntaxException;
+ import java.net.URL;
+-import java.nio.file.Files;
+ import java.nio.file.Path;
+-import java.util.jar.JarInputStream;
+-import java.util.jar.Manifest;
+ import org.elasticsearch.core.PathUtils;
+ import org.elasticsearch.core.SuppressForbidden;
+ 
+@@ -20,30 +16,7 @@
+   static {
+     String shortHash, date;
+     Path path = getElasticsearchCodebase();
+-    if (path.toString().endsWith(".jar")) {
+-      try {
+-        JarInputStream jar = new JarInputStream(Files.newInputStream(path, new java.nio.file.OpenOption[0]));
+-        try {
+-          Manifest manifest = jar.getManifest();
+-          shortHash = manifest.getMainAttributes().getValue("Change");
+-          date = manifest.getMainAttributes().getValue("Build-Date");
+-          jar.close();
+-        } catch (Throwable throwable) {
+-          try {
+-            jar.close();
+-          } catch (Throwable throwable1) {
+-            throwable.addSuppressed(throwable1);
+-          } 
+-          throw throwable;
+-        } 
+-      } catch (IOException e) {
+-        throw new RuntimeException(e);
+-      } 
+-    } else {
+-      shortHash = "Unknown";
+-      date = "Unknown";
+-    } 
+-    CURRENT = new XPackBuild(shortHash, date);
++    CURRENT = new XPackBuild("Unknown", "Unknown");
+   }
+   
+   @SuppressForbidden(reason = "looks up path of xpack.jar directly")
