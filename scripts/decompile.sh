@@ -30,7 +30,8 @@ function decompile_xpack() {
         java -jar ../../jd-cli.jar $package_path > ../../$temp_dir_decompiled/$class_name.java
         cd ../..
         tail -n +2 $temp_dir_decompiled/$class_name.java > $temp_dir_decompiled/$class_name.original.java
-        cp $temp_dir_decompiled/$class_name.original.java $temp_dir_decompiled/$class_name.pached.java
+        cp $temp_dir_decompiled/$class_name.original.java $temp_dir_decompiled/$class_name.patched.java
+        rm $temp_dir_decompiled/$class_name.java
     done
 
     ls $temp_dir_decompiled
@@ -41,7 +42,7 @@ function generate_patch() {
     mkdir -vp patches/${wanted_version}
     for package_path in "${package_paths[@]}"; do
         class_name=$(basename "$package_path" .class)
-        diff -u $temp_dir_decompiled/$class_name.original.java $temp_dir_decompiled/$class_name.pached.java > patches/${wanted_version}/$class_name.patch
+        diff -u $temp_dir_decompiled/$class_name.original.java $temp_dir_decompiled/$class_name.patched.java > patches/${wanted_version}/$class_name.patch
         echo "patch created for $package_path in patches/${wanted_version}/$class_name.patch"
     done;
 }
